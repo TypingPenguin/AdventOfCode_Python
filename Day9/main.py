@@ -1,5 +1,5 @@
 
-size = 500
+size = 50
 width = size
 height = size
 headRow = int(size/2)
@@ -25,7 +25,7 @@ def main():
 
     toString()
 
-    stringInput = readFile("input1.txt")
+    stringInput = readFile("input.txt")
     for line in stringInput:
         line = line.replace("\n","")
         line = line.split(" ")
