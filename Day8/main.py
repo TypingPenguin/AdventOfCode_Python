@@ -1,7 +1,8 @@
 
 def main():
     stringInput = readFile("input.txt")
-
+    for line in stringInput:
+        print(line.split(""))
 
 
 def readFile(inputFileName):
