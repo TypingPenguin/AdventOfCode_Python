@@ -1,6 +1,7 @@
 
 def main():
     stringInput = readFile("input.txt")
+    print(stringInput[0])
 
 
 
