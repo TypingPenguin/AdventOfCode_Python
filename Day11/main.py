@@ -1,8 +1,9 @@
 
 
 maxMonkeys = 0
-maxRounds = 20
+maxRounds = 10000
 currentMonkey = 0
+moduloOfDivisible = 9699690
 
 monkeyInspectedDictionary = {}
 
@@ -29,7 +30,7 @@ def main():
 
 
 
-    for round in range(maxRounds):
+    for round in range(1, maxRounds+1):
         #Round1
         lineCounter = -1
         for line in stringInput:
@@ -45,7 +46,7 @@ def main():
                 line = line.split(" ")
 
 
-                if round == 0:
+                if round == 1:
                     for x in line:
                         monkeyArray[currentMonkey].append(int(x))
 
@@ -60,7 +61,7 @@ def main():
 
 
                 #Multiply to new value
-                print(line)
+                #print(line)
                 for x in range(len(monkeyArray[currentMonkey])):
                     if line[0] == "old":
                         operator1 = monkeyArray[currentMonkey][x]
@@ -80,7 +81,7 @@ def main():
 
 
                 for x in range(len(monkeyArray[currentMonkey])):
-                    monkeyArray[currentMonkey][x] = int(monkeyArray[currentMonkey][x] / 3)
+                    monkeyArray[currentMonkey][x] = int(monkeyArray[currentMonkey][x] % moduloOfDivisible)
 
 
 
@@ -120,10 +121,13 @@ def main():
                 for x in removeElements:
                     monkeyArray[currentMonkey].remove(x)
 
-        #print(monkeyArray)
-        #print(monkeyInspectedDictionary)
-        print("END OF ROUND", round)
 
+        if round % 1000 == 0:
+            #print(monkeyArray)
+            print(monkeyInspectedDictionary)
+            print("END OF ROUND", round)
+
+    print(sorted(monkeyInspectedDictionary.values()))
 
 
 
