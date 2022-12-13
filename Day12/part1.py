@@ -104,16 +104,10 @@ def nextCoord(currentX, currentY, xAddition, yAddition):
     nextValue = arrayInput[currentY + yAddition][currentX + xAddition]
     if nextValue - currentValue <= 1:
         if cost[currentY + yAddition][currentX + xAddition] == ".":
-            if nextValue == 0:
-                cost[currentY + yAddition][currentX + xAddition] = 0
-                print(queue.qsize())
-                queue.put([currentX+xAddition,currentY+yAddition])
-                print(queue.qsize())
-            else:
-                cost[currentY + yAddition][currentX + xAddition] = cost[currentY][currentX] + 1
-                print(queue.qsize())
-                queue.put([currentX+xAddition,currentY+yAddition])
-                print(queue.qsize())
+            cost[currentY + yAddition][currentX + xAddition] = cost[currentY][currentX] + 1
+            print(queue.qsize())
+            queue.put([currentX+xAddition,currentY+yAddition])
+            print(queue.qsize())
 
 
 
