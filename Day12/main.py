@@ -1,8 +1,21 @@
+import queue
+import os
+
 
 startCoord = []
 endCoord = []
+cost = [[]]
+arrayInput =[[]]
+
+maxX = 0
+maxY = 0
+queue = queue.Queue()
 
 def main():
+    global arrayInput
+    global cost
+    #global queue
+
     stringInput = readFile("input1.txt")
     print(stringInput[0])
 
@@ -11,16 +24,91 @@ def main():
     arrayInput[startCoord[0]][startCoord[1]] = 0
     arrayInput[endCoord[0]][endCoord[1]] = 26
 
+    maxX = len(arrayInput[0])
+    maxY = len(arrayInput)
+    print(maxX,maxY)
+    cost = [["."]* maxX for i in range(maxY)]
 
-    for i in arrayInput:
-        for x in i:
-            print("%3d" %(x), end= "")
-        print("")
-    print()
+
+
+    toStringArray(arrayInput)
     print(startCoord)
     print(endCoord)
 
+    toStringArray(cost)
 
+
+    #take start coordinate
+    currentX = startCoord[1]
+    currentY = startCoord[0]
+
+    cost[currentY][currentX] = 0
+
+    #set first coord in queue
+    queue.put([currentX,currentY])
+    print(currentX,currentY)
+
+    counter = 0
+    while (True):
+
+        currentCoord = queue.get()
+        currentX = currentCoord[0]
+        currentY = currentCoord[1]
+
+
+        #down
+        if currentY+1 < maxY:
+            nextCoord(currentX, currentY, 0, 1)
+            print("DOWN")
+        #right
+        if currentX+1 < maxX:
+            nextCoord(currentX, currentY, 1, 0)
+            print("RIGHT")
+        #up
+        if currentY-1 >= 0:
+            nextCoord(currentX, currentY, 0, -1)
+            print("UP")
+        #left
+        if currentX-1 >= 0:
+            nextCoord(currentX, currentY, -1, 0)
+            print("LEFT")
+
+
+        if queue.empty():
+            print( "Queue empty!")
+            break;
+
+
+        counter +=1
+    print(toStringArray(cost))
+    print(toStringArray(arrayInput))
+    #print (cost[currentX][currentY])
+
+
+
+    print(cost[endCoord[0]][endCoord[1]])
+    #if they have as value in cost[] == "." do current cost +1
+    #add to queue.
+    #take first of queue etc until empty.
+
+
+
+#sets cost of Coord and puts it in the queue
+def nextCoord(currentX, currentY, xAddition, yAddition):
+    currentValue = arrayInput[currentY][currentX]
+    nextValue = arrayInput[currentY + yAddition][currentX + xAddition]
+    if abs(currentValue - nextValue) <= 1:
+        if cost[currentY + yAddition][currentX + xAddition] == ".":
+            cost[currentY + yAddition][currentX + xAddition] = cost[currentY][currentX] + 1
+            queue.put([currentX+xAddition,currentY+yAddition])
+
+
+def toStringArray(arrayInput):
+    for i in arrayInput:
+        for x in i:
+            print("%4s" % (x), end="")
+        print("")
+    print()
 
 
 def getArrayInput(stringInput):
